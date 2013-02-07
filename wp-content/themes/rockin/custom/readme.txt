@@ -1,0 +1,1 @@
+Move the template files to the root directory of rockin Framework to use.
