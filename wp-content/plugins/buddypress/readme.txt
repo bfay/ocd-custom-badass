@@ -1,6 +1,6 @@
 === Plugin Name ===
-Contributors: johnjamesjacoby, DJPaul, boonebgorges
-Tags: buddypress, social networking, activity, profiles, messaging, friends, groups, forums, microblogging, twitter, facebook, social, community, networks, networking, cms
+Contributors: johnjamesjacoby, DJPaul, boonebgorges, r-a-y
+Tags: social networking, activity, profiles, messaging, friends, groups, forums, notifications, settings, twitter, facebook, social, community, networks, networking, cms
 Requires at least: 3.5
 Tested up to: 3.5
 Stable tag: 1.6.4

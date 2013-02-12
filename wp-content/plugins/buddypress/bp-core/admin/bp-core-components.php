@@ -43,23 +43,41 @@ function bp_core_admin_components_settings() {
 /**
  * Creates reusable markup for component setup on the Components and Pages dashboard panel.
  *
- * This markup has been abstracted so that it can be used both during the setup wizard as well as
- * when BP has been fully installed.
- *
  * @package BuddyPress
  * @since BuddyPress (1.6)
  * @todo Use settings API
  */
 function bp_core_admin_components_options() {
 
-	// Load core functions, if needed
-	if ( !function_exists( 'bp_get_option' ) )
-		require( BP_PLUGIN_DIR . '/bp-core/bp-core-functions.php' );
-
 	// Declare local variables
 	$deactivated_components = array();
-	$required_components    = array();
 	$active_components      = apply_filters( 'bp_active_components', bp_get_option( 'bp-active-components' ) );
+
+	// The default components (if none are previously selected)
+	$default_components = array(
+		'xprofile' => array(
+			'title'       => __( 'Extended Profiles', 'buddypress' ),
+			'description' => __( 'Customize your community with fully editable profile fields that allow your users to describe themselves.', 'buddypress' )
+		)
+	);
+
+	// Required components
+	$required_components = array(
+		'core' => array(
+			'title'       => __( 'BuddyPress Core', 'buddypress' ),
+			'description' => __( 'It&#8216;s what makes <del>time travel</del> BuddyPress possible!', 'buddypress' )
+		),
+		'members' => array(
+			'title'       => __( 'Community Members', 'buddypress' ),
+			'description' => __( 'Everything in a BuddyPress community revolves around its members.', 'buddypress' )
+		),
+	);
+
+	// Retired components
+	$retired_components['forums'] = array(
+		'title'       => __( 'Group Forums', 'buddypress' ),
+		'description' => sprintf( __( 'BuddyPress Forums are retired. Use %s.', 'buddypress' ), '<a href="http://bbpress.org">bbPress</a>' )
+	);
 
 	// Optional core components
 	$optional_components = array(
@@ -88,8 +106,8 @@ function bp_core_admin_components_options() {
 			'description' => __( 'Groups allow your users to organize themselves into specific public, private or hidden sections with separate activity streams and member listings.', 'buddypress' )
 		),
 		'forums'   => array(
-			'title'       => __( 'Discussion Forums', 'buddypress' ),
-			'description' => __( 'Site-wide and Group forums allow for focused, bulletin-board style conversations. Powered by bbPress.', 'buddypress' )
+			'title'       => __( 'Group Forums (Legacy)', 'buddypress' ),
+			'description' => __( 'Group forums allow for focused, bulletin-board style conversations.', 'buddypress' )
 		),
 		'blogs'    => array(
 			'title'       => __( 'Site Tracking', 'buddypress' ),
@@ -97,22 +115,15 @@ function bp_core_admin_components_options() {
 		)
 	);
 
+	// Don't show Forums component in optional components if it's disabled
+	if ( ! bp_is_active( 'forums' ) ) {
+		unset( $optional_components['forums'] );
+	}
+
 	// Add blogs tracking if multisite
 	if ( is_multisite() ) {
 		$optional_components['blogs']['description'] = __( 'Record activity for new sites, posts, and comments across your network.', 'buddypress' );
 	}
-
-	// Required components
-	$required_components = array(
-		'core' => array(
-			'title'       => __( 'BuddyPress Core', 'buddypress' ),
-			'description' => __( 'It&#8216;s what makes <del>time travel</del> BuddyPress possible!', 'buddypress' )
-		),
-		'members' => array(
-			'title'       => __( 'Community Members', 'buddypress' ),
-			'description' => __( 'Everything in a BuddyPress community revolves around its members.', 'buddypress' )
-		),
-	);
 
 	// Merge optional and required together
 	$all_components = $optional_components + $required_components;
@@ -125,12 +136,12 @@ function bp_core_admin_components_options() {
 
 			// Trim off namespace and filename
 			$trimmed = array();
-			foreach ( (array) $deactivated_components as $component => $value ) {
+			foreach ( array_keys( (array) $deactivated_components ) as $component ) {
 				$trimmed[] = str_replace( '.php', '', str_replace( 'bp-', '', $component ) );
 			}
 
 			// Loop through the optional components to create an active component array
-			foreach ( (array) $optional_components as $ocomponent => $ovalue ) {
+			foreach ( array_keys( (array) $optional_components ) as $ocomponent ) {
 				if ( !in_array( $ocomponent, $trimmed ) ) {
 					$active_components[$ocomponent] = 1;
 				}
@@ -138,9 +149,9 @@ function bp_core_admin_components_options() {
 		}
 	}
 
-	// On new install, set all components to be active by default
-	if ( empty( $active_components ) && ( bp_get_maintenance_mode() == 'install' ) ) {
-		$active_components = $optional_components;
+	// On new install, set active components to default
+	if ( empty( $active_components ) ) {
+		$active_components = $default_components;
 	}
 
 	// Core component is always active
@@ -153,7 +164,7 @@ function bp_core_admin_components_options() {
 	$all_count = count( $all_components );
 	$page      = bp_core_do_network_admin()  ? 'settings.php' : 'options-general.php';
 	$action    = !empty( $_GET['action'] ) ? $_GET['action'] : 'all';
-	
+
 	switch( $action ) {
 		case 'all' :
 			$current_components = $all_components;
@@ -171,94 +182,89 @@ function bp_core_admin_components_options() {
 		case 'mustuse' :
 			$current_components = $required_components;
 			break;
-	}
-	
-	// The setup wizard uses different, more descriptive text
-	if ( bp_get_maintenance_mode() ) : ?>
+		case 'retired' :
+			$current_components = $retired_components;
+			break;
+	} ?>
 
-		<h3><?php _e( 'Available Components', 'buddypress' ); ?></h3>
+	<ul class="subsubsub">
+		<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'all'      ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'all'      ) : ?>class="current"<?php endif; ?>><?php printf( _nx( 'All <span class="count">(%s)</span>',      'All <span class="count">(%s)</span>',      $all_count,         'plugins', 'buddypress' ), number_format_i18n( $all_count                    ) ); ?></a> | </li>
+		<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'active'   ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'active'   ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Active <span class="count">(%s)</span>',   'Active <span class="count">(%s)</span>',   count( $active_components   ), 'buddypress' ), number_format_i18n( count( $active_components   ) ) ); ?></a> | </li>
+		<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'inactive' ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'inactive' ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Inactive <span class="count">(%s)</span>', 'Inactive <span class="count">(%s)</span>', count( $inactive_components ), 'buddypress' ), number_format_i18n( count( $inactive_components ) ) ); ?></a> | </li>
+		<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'mustuse'  ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'mustuse'  ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Must-Use <span class="count">(%s)</span>', 'Must-Use <span class="count">(%s)</span>', count( $required_components ), 'buddypress' ), number_format_i18n( count( $required_components ) ) ); ?></a> | </li>
+		<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'retired'  ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'retired'  ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Retired <span class="count">(%s)</span>',  'Retired <span class="count">(%s)</span>',  count( $retired_components ),  'buddypress' ), number_format_i18n( count( $retired_components  ) ) ); ?></a></li>
+	</ul>
 
-		<p><?php _e( 'Each component has a unique purpose, and your community may not need each one.', 'buddypress' ); ?></p>
+	<table class="widefat fixed plugins" cellspacing="0">
+		<thead>
+			<tr>
+				<th scope="col" id="cb" class="manage-column column-cb check-column">&nbsp;</th>
+				<th scope="col" id="name" class="manage-column column-name" style="width: 190px;"><?php _e( 'Component', 'buddypress' ); ?></th>
+				<th scope="col" id="description" class="manage-column column-description"><?php _e( 'Description', 'buddypress' ); ?></th>
+			</tr>
+		</thead>
 
-	<?php endif ?>
-		
-		<ul class="subsubsub">
-			<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'all'      ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'all'      ) : ?>class="current"<?php endif; ?>><?php printf( _nx( 'All <span class="count">(%s)</span>',      'All <span class="count">(%s)</span>',      $all_count,         'plugins', 'buddypress' ), number_format_i18n( $all_count                    ) ); ?></a> | </li>
-			<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'active'   ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'active'   ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Active <span class="count">(%s)</span>',   'Active <span class="count">(%s)</span>',   count( $active_components   ), 'buddypress' ), number_format_i18n( count( $active_components   ) ) ); ?></a> | </li>
-			<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'inactive' ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'inactive' ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Inactive <span class="count">(%s)</span>', 'Inactive <span class="count">(%s)</span>', count( $inactive_components ), 'buddypress' ), number_format_i18n( count( $inactive_components ) ) ); ?></a> | </li>
-			<li><a href="<?php echo add_query_arg( array( 'page' => 'bp-components', 'action' => 'mustuse'  ), bp_get_admin_url( $page ) ); ?>" <?php if ( $action === 'mustuse'  ) : ?>class="current"<?php endif; ?>><?php printf( _n(  'Must-Use <span class="count">(%s)</span>', 'Must-Use <span class="count">(%s)</span>', count( $required_components ), 'buddypress' ), number_format_i18n( count( $required_components ) ) ); ?></a></li>
-		</ul>
+		<tfoot>
+			<tr>
+				<th scope="col" class="manage-column column-cb check-column">&nbsp;</th>
+				<th scope="col" class="manage-column column-name" style="width: 190px;"><?php _e( 'Component', 'buddypress' ); ?></th>
+				<th scope="col" class="manage-column column-description"><?php _e( 'Description', 'buddypress' ); ?></th>
+			</tr>
+		</tfoot>
 
-		<table class="widefat fixed plugins" cellspacing="0">
-			<thead>
-				<tr>
-					<th scope="col" id="cb" class="manage-column column-cb check-column">&nbsp;</th>
-					<th scope="col" id="name" class="manage-column column-name" style="width: 190px;"><?php _e( 'Component', 'buddypress' ); ?></th>
-					<th scope="col" id="description" class="manage-column column-description"><?php _e( 'Description', 'buddypress' ); ?></th>
-				</tr>
-			</thead>
+		<tbody id="the-list">
 
-			<tfoot>
-				<tr>
-					<th scope="col" class="manage-column column-cb check-column">&nbsp;</th>
-					<th scope="col" class="manage-column column-name" style="width: 190px;"><?php _e( 'Component', 'buddypress' ); ?></th>
-					<th scope="col" class="manage-column column-description"><?php _e( 'Description', 'buddypress' ); ?></th>
-				</tr>
-			</tfoot>
+			<?php if ( !empty( $current_components ) ) : ?>
 
-			<tbody id="the-list">
-				
-				<?php if ( !empty( $current_components ) ) : ?>
+				<?php foreach ( $current_components as $name => $labels ) : ?>
 
-					<?php foreach ( $current_components as $name => $labels ) : ?>
+					<?php if ( !in_array( $name, array( 'core', 'members' ) ) ) :
+						$class = isset( $active_components[esc_attr( $name )] ) ? 'active' : 'inactive';
+					else :
+						$class = 'active';
+					endif; ?>
 
-						<?php if ( !in_array( $name, array( 'core', 'members' ) ) ) :
-							$class = isset( $active_components[esc_attr( $name )] ) ? 'active' : 'inactive';
-						else :
-							$class = 'active';
-						endif; ?>
+					<tr id="<?php echo esc_attr( $name ); ?>" class="<?php echo esc_attr( $name ) . ' ' . esc_attr( $class ); ?>">
+						<th scope="row">
 
-						<tr id="<?php echo $name; ?>" class="<?php echo $name . ' ' . $class; ?>">
-							<th scope="row">
+							<?php if ( !in_array( $name, array( 'core', 'members' ) ) ) : ?>
 
-								<?php if ( !in_array( $name, array( 'core', 'members' ) ) ) : ?>
+								<input type="checkbox" id="bp_components[<?php echo esc_attr( $name ); ?>]" name="bp_components[<?php echo esc_attr( $name ); ?>]" value="1"<?php checked( isset( $active_components[esc_attr( $name )] ) ); ?> />
 
-									<input type="checkbox" id="bp_components[<?php echo esc_attr( $name ); ?>]" name="bp_components[<?php echo esc_attr( $name ); ?>]" value="1"<?php checked( isset( $active_components[esc_attr( $name )] ) ); ?> />
+							<?php endif; ?>
 
-								<?php endif; ?>
+							<label class="screen-reader-text" for="bp_components[<?php echo esc_attr( $name ); ?>]"><?php sprintf( __( 'Select %s', 'buddypress' ), esc_html( $labels['title'] ) );  ?></label>
+						</th>
+						<td class="plugin-title" style="width: 190px;">
+							<span></span>
+							<strong><?php echo esc_html( $labels['title'] ); ?></strong>
+							<div class="row-actions-visible">
 
-								<label class="screen-reader-text" for="bp_components[<?php echo esc_attr( $name ); ?>]"><?php sprintf( __( 'Select %s', 'buddypress' ), esc_html( $labels['title'] ) );  ?></label>
-							</th>
-							<td class="plugin-title" style="width: 190px;">
-								<span></span>
-								<strong><?php echo esc_html( $labels['title'] ); ?></strong>
-								<div class="row-actions-visible">
-									
-								</div>
-							</td>
+							</div>
+						</td>
 
-							<td class="column-description desc">
-								<div class="plugin-description">
-									<p><?php echo $labels['description']; ?></p>
-								</div>
-								<div class="active second plugin-version-author-uri">
-									
-								</div>
-							</td>
-						</tr>
+						<td class="column-description desc">
+							<div class="plugin-description">
+								<p><?php echo $labels['description']; ?></p>
+							</div>
+							<div class="active second plugin-version-author-uri">
 
-					<?php endforeach ?>
-
-				<?php else : ?>
-						
-					<tr class="no-items">
-						<td class="colspanchange" colspan="3"><?php _e( 'No components found.', 'buddypress' ); ?></td>
+							</div>
+						</td>
 					</tr>
 
-				<?php endif; ?>
+				<?php endforeach ?>
 
-			</tbody>
-		</table>
+			<?php else : ?>
+
+				<tr class="no-items">
+					<td class="colspanchange" colspan="3"><?php _e( 'No components found.', 'buddypress' ); ?></td>
+				</tr>
+
+			<?php endif; ?>
+
+		</tbody>
+	</table>
 
 	<input type="hidden" name="bp_components[members]" value="1" />
 
@@ -269,32 +275,39 @@ function bp_core_admin_components_options() {
  * Handle saving the Component settings
  *
  * @since BuddyPress (1.6)
- * @todo Use settings API
- * @global BuddyPress $bp
- * @return false On failure
+ * @todo Use settings API when it supports saving network settings
+ * @return If not time to save settings
  */
 function bp_core_admin_components_settings_handler() {
-	global $bp;
 
-	if ( isset( $_POST['bp-admin-component-submit'] ) ) {
-		if ( !check_admin_referer('bp-admin-component-setup') )
-			return false;
+	// Bail if not saving settings
+	if ( ! isset( $_POST['bp-admin-component-submit'] ) )
+		return;
 
-		// Settings form submitted, now save the settings. First, set active components
-		if ( isset( $_POST['bp_components'] ) ) {
-			// Save settings and upgrade schema
-			require_once( BP_PLUGIN_DIR . '/bp-core/admin/bp-core-schema.php' );
-			$bp->active_components = stripslashes_deep( $_POST['bp_components'] );
-			bp_core_install( $bp->active_components );
+	// Bail if nonce fails
+	if ( ! check_admin_referer( 'bp-admin-component-setup' ) )
+		return;
 
-			bp_update_option( 'bp-active-components', $bp->active_components );
-		}
+	// Settings form submitted, now save the settings. First, set active components
+	if ( isset( $_POST['bp_components'] ) ) {
 
-		$base_url = bp_get_admin_url(  add_query_arg( array( 'page' => 'bp-components', 'updated' => 'true' ), 'admin.php' ) );
+		// Load up BuddyPress
+		$bp = buddypress();
 
-		wp_redirect( $base_url );
+		// Save settings and upgrade schema
+		require_once( BP_PLUGIN_DIR . '/bp-core/admin/bp-core-schema.php' );
+
+		$bp->active_components = stripslashes_deep( $_POST['bp_components'] );
+
+		bp_core_install( $bp->active_components );
+		bp_core_add_page_mappings( $bp->active_components );
+		bp_update_option( 'bp-active-components', $bp->active_components );
 	}
-}
-add_action( 'admin_init', 'bp_core_admin_components_settings_handler' );
 
-?>
+	// Where are we redirecting to?
+	$base_url = bp_get_admin_url( add_query_arg( array( 'page' => 'bp-components', 'updated' => 'true' ), 'admin.php' ) );
+
+	// Redirect
+	wp_redirect( $base_url );
+}
+add_action( 'bp_admin_init', 'bp_core_admin_components_settings_handler' );

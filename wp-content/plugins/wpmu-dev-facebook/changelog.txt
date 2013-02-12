@@ -5,6 +5,12 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+2.6.2 - 2013-02-08
+----------------------------------------------------------------------
+- Network connection data loading.
+- Stripping extra markup.
+- Using internal flag to make sure the scripts are loaded in time.
+
 2.6.1 - 2013-02-05
 ----------------------------------------------------------------------
 - Network settings fix.
@@ -322,4 +328,4 @@ Change Log:
 - Added an option for overriding the WordPress discussion settings.
 - Added date threshold parameter for Facebook Events widget.
 
-144460-1360119826
+144460-1360634429-au
