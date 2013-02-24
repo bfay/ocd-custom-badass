@@ -10,15 +10,19 @@
  * @since Twenty Twelve 1.0
  */
 ?>
-	</div><!-- #main .wrapper -->
+
+	
 	<footer id="colophon" role="contentinfo">
 		<div class="site-info">
 			<?php do_action( 'calypso_credits' ); ?>
-			<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'calypso' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'calypso' ); ?>"><?php printf( __( 'Proudly powered by %s', 'calypso' ), 'WordPress' ); ?></a>
-		</div><!-- .site-info -->
+			<a href="<?php echo esc_url( __( 'http://www.eighthloop.com/', 'calypso' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'calypso' ); ?>"><?php printf( __( 'Proudly designed by %s', 'calypso' ), 'Eighth Loop' ); ?></a>
+					</div><!-- .site-info -->
+		</div><!-- #main .wrapper -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
+
 <?php wp_footer(); ?>
+
 </body>
 </html>

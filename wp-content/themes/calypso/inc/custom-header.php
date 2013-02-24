@@ -25,7 +25,7 @@ function calypso_custom_header_setup() {
 		'default-image'          => '',
 
 		// Set height and width, with a maximum value for the width.
-		'height'                 => 280,
+		'height'                 => 180,
 		'width'                  => 1140,
 		'max-width'              => 2000,
 

@@ -147,8 +147,8 @@ html {
   -ms-text-size-adjust: 100%;
 }
 body {
-  line-height: 24px;
-  font-size: 16px;
+  line-height: 22px;
+  font-size: 15px;
   font-size: 1rem;
 }
 ol,
@@ -212,7 +212,7 @@ del {
   color: #222222;
 }
 ins {
-  background: #fff9c0;
+  background: #fff;
   text-decoration: none;
 }
 hr {
@@ -265,8 +265,8 @@ img {
 .widget-title,
 .entry-content th,
 .comment-content th {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 15px;
+  line-height: 22px;
   font-weight: 400;
   text-transform: uppercase;
   color: #441403;
@@ -275,9 +275,9 @@ img {
 article.format-quote footer.entry-meta,
 article.format-link footer.entry-meta,
 article.format-status footer.entry-meta {
-  font-size: 12px;
+  font-size: 11.25px;
   font-size: 0.75rem;
-  line-height: 24px;
+  line-height: 22px;
 }
 /* Form fields, general styles first */
 button,
@@ -313,11 +313,11 @@ input[type="color"] {
 -------------------------------------------------------------- */
 /* Body, links, basics */
 body {
-  font-size: 16px;
+  font-size: 15px;
   font-size: 1rem;
   font-family: "Philosopher", Georgia, serif;
   text-rendering: optimizeLegibility;
-  color: #444;
+  color: transparent;
 }
 body.custom-font-enabled {
   font-family: "Philosopher", Georgia, serif;
@@ -338,11 +338,11 @@ a:hover {
 .main-navigation .assistive-text:hover,
 .main-navigation .assistive-text:active,
 .main-navigation .assistive-text:focus {
-  background: #fff;
+  background: transparent;
   border: 2px solid #333;
   border-radius: 3px;
   clip: auto !important;
-  color: #000;
+  color: #fba43c;
   display: block;
   font-size: 12px;
   padding: 12px;
@@ -356,7 +356,7 @@ a:hover {
 /* Page structure */
 .site {
   padding: 0;
-  background-color: #fff;
+  background-color: transparent;
 }
 .site-content {
   margin: 24px 0 0;
@@ -523,19 +523,19 @@ figure {
   margin: 0;
 }
 p {
-  margin: 0 0 12px;
+  margin: 0 0 11px;
 }
 p small {
-  font-size: 16px;
+  font-size: 15px;
   color: #441403;
-  line-height: 24px;
+  line-height: 22px;
   font-weight: 400;
 }
 .lead {
-  margin-bottom: 24px;
-  font-size: 24px;
+  margin-bottom: 22px;
+  font-size: 22.5px;
   font-weight: 200;
-  line-height: 36px;
+  line-height: 33px;
 }
 h1,
 h2,
@@ -610,8 +610,8 @@ code {
   background: #ffff99;
 }
 .page-header {
-  padding-bottom: 23px;
-  margin: 24px 0;
+  padding-bottom: 21px;
+  margin: 22px 0;
   border-bottom: 1px solid #555555;
 }
 .page-header h1 {
@@ -620,7 +620,7 @@ code {
 ul,
 ol {
   padding: 0;
-  margin: 0 0 12px 25px;
+  margin: 0 0 11px 25px;
 }
 ul ul,
 ul ol,
@@ -635,7 +635,7 @@ ol {
   list-style: decimal;
 }
 li {
-  line-height: 24px;
+  line-height: 22px;
 }
 ul.unstyled,
 ol.unstyled {
@@ -643,18 +643,18 @@ ol.unstyled {
   list-style: none;
 }
 dl {
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 dt,
 dd {
-  line-height: 24px;
+  line-height: 22px;
 }
 dt {
   font-weight: bold;
-  line-height: 23px;
+  line-height: 21px;
 }
 dd {
-  margin-left: 12px;
+  margin-left: 11px;
 }
 .dl-horizontal dt {
   float: left;
@@ -666,7 +666,7 @@ dd {
   margin-left: 130px;
 }
 hr {
-  margin: 24px 0;
+  margin: 22px 0;
   border: 0;
   border-top: 1px solid 1px;
   border-bottom: 1px solid #ffffff;
@@ -690,7 +690,7 @@ abbr.initialism {
 }
 blockquote {
   padding: 0 0 0 15px;
-  margin: 0 0 24px;
+  margin: 0 0 22px;
   border-left: 5px solid #999999;
 }
 .pull-right {
@@ -712,9 +712,9 @@ blockquote:after {
 }
 address {
   display: block;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   font-style: 400;
-  line-height: 24px;
+  line-height: 22px;
 }
 small {
   font-size: 100%;
@@ -1898,22 +1898,20 @@ that IE7/8 do not support :nth-child.
 }
 /* Navigation Menu */
 .main-navigation {
-  margin-top: 24px;
-  margin-top: 1.5rem;
   text-align: center;
+  margin-bottom: 2rem;
 }
 .main-navigation li {
-  margin-top: 24px;
-  margin-top: 1.5rem;
-  font-size: 16px;
+  font-size: 15px;
   font-size: 1rem;
   line-height: 1.5;
+  color: #fba43c;
 }
 .main-navigation a {
-  color: #5e5e5e;
+  color: #fcbb6e;
 }
 .main-navigation a:hover {
-  color: #21759b;
+  color: #fdd3a0;
 }
 .main-navigation ul.nav-menu,
 .main-navigation div.nav-menu > ul {
@@ -2004,6 +2002,180 @@ li.bypostauthor cite span {
   border-radius: 2px;
   box-shadow: none;
   padding: 0;
+}
+a:hover.nav {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/nav-hover.png');
+  display: block;
+  height: 50px;
+  margin-bottom: 1rem;
+  width: 120px;
+  float: left;
+}
+a:active.nav {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/nav-active.png');
+  display: block;
+  height: 50px;
+  margin-bottom: 1rem;
+  width: 120px;
+  float: left;
+}
+/* ! lesson library buttons */
+a.red-button-1 {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/red-button.png');
+  max-width: 99px;
+  width: 100%;
+  height: 99px;
+  position: relative;
+  margin-top: 27%;
+  margin-left: 15%;
+  float: left;
+  display: block;
+}
+a.red-button-2 {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/red-button.png');
+  max-width: 99px;
+  width: 100%;
+  height: 99px;
+  position: relative;
+  margin-top: 27%;
+  margin-right: 15%;
+  float: right;
+  display: block;
+}
+a.red-button-1:hover {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/green-button.png');
+  max-width: 99px;
+  width: 100%;
+  height: 99px;
+  position: relative;
+  margin-top: 27%;
+  margin-left: 15%;
+  float: left;
+  display: block;
+}
+a.red-button-1:active {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/dark-green-button.png');
+  max-width: 99px;
+  width: 100%;
+  height: 99px;
+  position: relative;
+  margin-top: 27%;
+  margin-left: 15%;
+  float: left;
+  display: block;
+}
+a.red-button-2:hover {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/green-button.png');
+  max-width: 99px;
+  width: 100%;
+  height: 99px;
+  position: relative;
+  margin-top: 27%;
+  margin-right: 15%;
+  float: right;
+  display: block;
+}
+a.red-button-2:active {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/dark-green-button.png');
+  max-width: 99px;
+  width: 100%;
+  height: 99px;
+  position: relative;
+  margin-top: 27%;
+  margin-right: 15%;
+  float: right;
+  display: block;
+}
+/* ! Social Icons */
+a.btn-facebook {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-facebook.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 14rem;
+  float: right;
+}
+a.btn-facebook:hover {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-facebook-hover.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 14rem;
+  float: right;
+}
+a.btn-facebook:active {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-facebook-active.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 14rem;
+  float: right;
+}
+a.btn-twitter {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-twitter.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 11rem;
+  float: right;
+}
+a.btn-twitter:hover {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-twitter-hover.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 11rem;
+  float: right;
+}
+a.btn-twitter:active {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-twitter-active.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 11rem;
+  float: right;
+}
+a.btn-mail {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-mail.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 8rem;
+  float: right;
+}
+a.btn-mail:hover {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-mail-hover.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 8rem;
+  float: right;
+}
+a.btn-mail:active {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/btn-mail-active.png');
+  max-width: 40px;
+  width: 100%;
+  height: 41px;
+  position: relative;
+  margin-top: -3rem;
+  margin-right: 8rem;
+  float: right;
 }
 /* Responsive images */
 .entry-content img,
@@ -2886,6 +3058,10 @@ img#wpstats {
   .site-content {
     float: left;
     width: 65.104166667%;
+    max-width: 960px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 10px 10px 15px 10px;
   }
   body.template-front-page .site-content,
   body.single-attachment .site-content,
@@ -2895,6 +3071,27 @@ img#wpstats {
   .widget-area {
     float: right;
     width: 26.041666667%;
+    background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/paper.png') repeat;
+    display: block;
+    margin-right: 1rem;
+    max-width: 300px;
+    width: 100%;
+    -moz-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.6);
+    padding: 10px 10px 15px 10px;
+  }
+  .widget-area-front {
+    background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/paper.png') repeat;
+    float: left;
+    width: 65.104166667%;
+    max-width: 960px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    -moz-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.6);
+    padding: 10px 10px 15px 10px;
   }
   .site-header h1,
   .site-header h2 {
@@ -2908,8 +3105,6 @@ img#wpstats {
   }
   .main-navigation ul.nav-menu,
   .main-navigation div.nav-menu > ul {
-    border-bottom: 1px solid #ededed;
-    border-top: 1px solid #ededed;
     display: inline-block !important;
     text-align: left;
     width: 100%;
@@ -2924,14 +3119,13 @@ img#wpstats {
     text-decoration: none;
   }
   .main-navigation li a {
-    border-bottom: 0;
-    color: #6a6a6a;
+    color: #fba43c;
     line-height: 3.692307692;
     text-transform: uppercase;
     white-space: nowrap;
   }
   .main-navigation li a:hover {
-    color: #000;
+    color: #fdd3a0;
   }
   .main-navigation li {
     margin: 0 40px 0 0;
@@ -2951,12 +3145,11 @@ img#wpstats {
     left: 100%;
   }
   .main-navigation ul li:hover > ul {
-    border-left: 0;
     display: block;
   }
   .main-navigation li ul li a {
-    background: #efefef;
-    border-bottom: 1px solid #ededed;
+    background: #fa8d0a;
+    opacity: 70%;
     display: block;
     font-size: 11px;
     font-size: 0.785714286rem;
@@ -2968,15 +3161,15 @@ img#wpstats {
     white-space: normal;
   }
   .main-navigation li ul li a:hover {
-    background: #e3e3e3;
-    color: #444;
+    background: #fdd3a0;
+    color: #fdd3a0;
   }
   .main-navigation .current-menu-item > a,
   .main-navigation .current-menu-ancestor > a,
   .main-navigation .current_page_item > a,
   .main-navigation .current_page_ancestor > a {
-    color: #636363;
-    font-weight: bold;
+    color: #fcbb6e;
+    font-weight: 700;
   }
   .menu-toggle {
     display: none;
@@ -3034,19 +3227,18 @@ img#wpstats {
 /* Minimum width of 960 pixels. */
 @media screen and (min-width: 960px) {
   body {
-    background-color: #e6e6e6;
+    background-color: #441403;
   }
   body .site {
-    padding: 0 40px;
-    padding: 0 2.857142857rem;
-    margin-top: 48px;
-    margin-top: 3.428571429rem;
+    padding: 0;
+    margin-top: 15px;
+    margin-top: 1rem;
     margin-bottom: 48px;
     margin-bottom: 3.428571429rem;
-    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+    box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.7);
   }
   body.custom-background-empty {
-    background-color: #fff;
+    background-color: transparent;
   }
   body.custom-background-empty .site,
   body.custom-background-white .site {
@@ -3122,7 +3314,7 @@ img#wpstats {
   }
   .wrapper {
     border-top: none;
-    box-shadow: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
   }
   .site-content {
     margin: 0;
@@ -3153,4 +3345,149 @@ img#wpstats {
     float: none;
     width: auto;
   }
+}
+.header-image {
+  float: none;
+  margin: 0 auto;
+  position: relative;
+  display: block;
+}
+.nav-menu-wrapper {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/header-shadow.png') no-repeat;
+  position: relative;
+  margin: 0 auto;
+  float: left;
+  display: block;
+  width: 100%;
+  max-width: 1140px;
+  overflow: visible;
+}
+.nav-menu {
+  background: transparent;
+  position: relative;
+  margin: 0 auto;
+  float: left;
+  display: block;
+  width: 100%;
+  max-width: 1140px;
+  padding-left: 4rem;
+}
+.main-navigation {
+  width: 100%;
+  float: none;
+  margin: 0 auto;
+}
+.wrapper {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/rgl-bg.jpg');
+  background-repeat: repeat-y;
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.site-content {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/paper.png') repeat;
+  display: block;
+  padding: 0 10px 10px 15px;
+  -moz-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.6);
+}
+.full-page {
+  width: 100%;
+  margin: 10px auto;
+  clear: both;
+  float: none;
+  display: block;
+  padding: 0 10px 10px 15px;
+  -moz-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 0 8px 8px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.6);
+}
+.front-page-left {
+  width: 100%;
+  height: auto;
+  display: block;
+  float: left;
+  margin-top: 15px;
+}
+.lesson-library-container {
+  display: block;
+  float: left;
+  position: relative;
+  width: 100%;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.lesson-library {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/lesson-library.png') no-repeat;
+  width: 100%;
+  max-width: 499px;
+  height: 304px;
+  display: block;
+  float: left;
+  position: relative;
+}
+.paper-bg {
+  background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/paper.png') repeat;
+  display: block;
+}
+.splash-numbers {
+  font-size: 80px;
+  font-family: "Philosopher", Georgia, serif;
+  color: #ffffff;
+  line-height: 0.327;
+  text-align: center;
+  -moz-transform: matrix(0.78409553815564, 0, 0, 0.78170752660135, 0, 0);
+  -webkit-transform: matrix(0.78409553815564, 0, 0, 0.78170752660135, 0, 0);
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.8);
+  position: relative;
+  display: inline-block;
+  float: left;
+  padding-left: 3rem;
+  padding-top: .5rem;
+  height: 70px;
+  width: 50px;
+}
+.splash-text {
+  font-size: 20px;
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  line-height: 1.325;
+  text-align: left;
+  -moz-transform: matrix(0.88333535898567, 0, 0, 0.88326461722772, 0, 0);
+  -webkit-transform: matrix(0.88333535898567, 0, 0, 0.88326461722772, 0, 0);
+  text-shadow: 3.5px 6.062px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+  display: inline-block;
+  float: left;
+}
+.splash-title {
+  font-size: 52px;
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  line-height: 1.1;
+  text-align: center;
+  -moz-transform: matrix(0.92258128441406, 0, 0, 0.92122066402449, 0, 0);
+  -webkit-transform: matrix(0.92258128441406, 0, 0, 0.92122066402449, 0, 0);
+  text-shadow: 3.5px 6.062px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+  float: left;
+  margin-bottom: 2rem;
+}
+.front-page-sidebar {
+  width: 100%;
+  overflow: visible;
+  z-index: 1000;
+  position: relative;
+  float: right;
+  display: inline-block;
 }

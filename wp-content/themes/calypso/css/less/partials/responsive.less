@@ -21,15 +21,43 @@
 	.site-content {
 		float: left;
 		width: 65.104166667%;
+		max-width: 960px;
+		margin-left: 1rem;
+		margin-right: 1rem;
+		padding: 10px 10px 15px 10px;
 	}
 	body.template-front-page .site-content,
 	body.single-attachment .site-content,
 	body.full-width .site-content {
 		width: 100%;
+		
 	}
 	.widget-area {
 		float: right;
 		width: 26.041666667%;
+		background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/paper.png') repeat;
+		display: block;
+		margin-right: 1rem;
+		max-width: 300px;
+		width: 100%;
+		-moz-box-shadow: 0 0 8px 8px rgba(0,0,0, .6);
+		-webkit-box-shadow: 0 0 8px 8px rgba(0,0,0, .6);
+		box-shadow: 0px 0px 8px 8px rgba(0,0,0, .6);
+		padding: 10px 10px 15px 10px;
+	}
+	
+		.widget-area-front {
+		background: url('http://www.rockinguitarlessons.com/wp-content/themes/calypso/images/paper.png') repeat;
+		float: left;
+		width: 65.104166667%;
+		max-width: 960px;
+		margin-left: 1rem;
+		margin-right: 1rem;
+		padding: 10px 10px 15px 10px;
+		-moz-box-shadow: 0 0 8px 8px rgba(0,0,0, .6);
+		-webkit-box-shadow: 0 0 8px 8px rgba(0,0,0, .6);
+		box-shadow: 0px 0px 8px 8px rgba(0,0,0, .6);
+		padding: 10px 10px 15px 10px;
 	}
 	.site-header h1,
 	.site-header h2 {
@@ -43,8 +71,6 @@
 	}
 	.main-navigation ul.nav-menu,
 	.main-navigation div.nav-menu > ul {
-		border-bottom: 1px solid #ededed;
-		border-top: 1px solid #ededed;
 		display: inline-block !important;
 		text-align: left;
 		width: 100%;
@@ -59,14 +85,13 @@
 		text-decoration: none;
 	}
 	.main-navigation li a {
-		border-bottom: 0;
-		color: #6a6a6a;
+		color: @orange;
 		line-height: 3.692307692;
 		text-transform: uppercase;
 		white-space: nowrap;
 	}
 	.main-navigation li a:hover {
-		color: #000;
+		color: lighten(@orange, 20%);
 	}
 	.main-navigation li {
 		margin: 0 40px 0 0;
@@ -86,12 +111,12 @@
 		left: 100%;
 	}
 	.main-navigation ul li:hover > ul {
-		border-left: 0;
+		
 		display: block;
 	}
 	.main-navigation li ul li a {
-		background: #efefef;
-		border-bottom: 1px solid #ededed;
+		background: darken(@orange, 10%);
+		opacity: 70%;
 		display: block;
 		font-size: 11px;
 		font-size: 0.785714286rem;
@@ -103,15 +128,15 @@
 		white-space: normal;
 	}
 	.main-navigation li ul li a:hover {
-		background: #e3e3e3;
-		color: #444;
+		background: lighten(@orange,20%);
+		color: lighten(@orange, 20%);
 	}
 	.main-navigation .current-menu-item > a,
 	.main-navigation .current-menu-ancestor > a,
 	.main-navigation .current_page_item > a,
 	.main-navigation .current_page_ancestor > a {
-		color: #636363;
-		font-weight: bold;
+		color: lighten(@orange, 10%);
+		font-weight: @heading-weight;
 	}
 	.menu-toggle {
 		display: none;
@@ -170,19 +195,18 @@
 /* Minimum width of 960 pixels. */
 @media screen and (min-width: 960px) {
 	body {
-		background-color: #e6e6e6;
+		background-color: @main-color;
 	}
 	body .site {
-		padding: 0 40px;
-		padding: 0 2.857142857rem;
-		margin-top: 48px;
-		margin-top: 3.428571429rem;
+		padding: 0;
+		margin-top: @base-size;
+		margin-top: 1rem;
 		margin-bottom: 48px;
 		margin-bottom: 3.428571429rem;
-		box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+		box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.7);
 	}
 	body.custom-background-empty {
-		background-color: #fff;
+		background-color: transparent;
 	}
 	body.custom-background-empty .site,
 	body.custom-background-white .site {
@@ -259,7 +283,7 @@
 	}
 	.wrapper {
 		border-top: none;
-		box-shadow: none;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
 	}
 	.site-content {
 		margin: 0;
